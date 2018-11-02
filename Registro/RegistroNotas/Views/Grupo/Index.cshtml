@@ -1,0 +1,77 @@
+﻿@model IEnumerable<RegistroNotas.Grupo>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Curso.NombreCurso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoGrupo1.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PeriodoLectivo.NombrePeriodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profesor.Cedula)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Curso.NombreCurso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoGrupo1.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PeriodoLectivo.NombrePeriodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesor.Cedula)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.IdGrupo }) |
+                @Html.ActionLink("Details", "Details", new { id=item.IdGrupo }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.IdGrupo })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

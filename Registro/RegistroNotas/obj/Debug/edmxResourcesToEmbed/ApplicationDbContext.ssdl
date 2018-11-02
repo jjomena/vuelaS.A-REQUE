@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ControlNotasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Curso">
+    <Key>
+      <PropertyRef Name="IdCurso" />
+    </Key>
+    <Property Name="IdCurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreCurso" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="CodCurso" Type="varchar" MaxLength="30" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="EstadoEstudiante">
+    <Key>
+      <PropertyRef Name="IdEstadoEst" />
+    </Key>
+    <Property Name="IdEstadoEst" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="EstadoGrupo">
+    <Key>
+      <PropertyRef Name="IdEstadoGrupo" />
+    </Key>
+    <Property Name="IdEstadoGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="Estudiante">
+    <Key>
+      <PropertyRef Name="IdEstudiante" />
+    </Key>
+    <Property Name="IdEstudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Carnet" Type="varchar" MaxLength="20" />
+    <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="PrimerApellido" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="SegundoApellido" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="FechaIngreso" Type="date" />
+    <Property Name="Email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Telefono" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Epassword" Type="varchar" MaxLength="20" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="EstudianteGrupo">
+    <Key>
+      <PropertyRef Name="IdEstGrup" />
+    </Key>
+    <Property Name="IdEstGrup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEstudiante" Type="int" Nullable="false" />
+    <Property Name="IdGrupo" Type="int" Nullable="false" />
+    <Property Name="IdEstadoEst" Type="int" Nullable="false" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="Evaluacion">
+    <Key>
+      <PropertyRef Name="IdEvaluacion" />
+    </Key>
+    <Property Name="IdEvaluacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdRubrica" Type="int" Nullable="false" />
+    <Property Name="FechaAplicacion" Type="date" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="PorcentajeAsig" Type="float" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="EvaluacionEstudiante">
+    <Key>
+      <PropertyRef Name="IdEvalEst" />
+    </Key>
+    <Property Name="IdEvalEst" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEstudiante" Type="int" Nullable="false" />
+    <Property Name="IdEvaluacion" Type="int" Nullable="false" />
+    <Property Name="NotaObtenida" Type="float" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="Grupo">
+    <Key>
+      <PropertyRef Name="IdGrupo" />
+    </Key>
+    <Property Name="IdGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Hora" Type="datetime" Nullable="false" />
+    <Property Name="Aula" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="EstadoGrupo" Type="int" Nullable="false" />
+    <Property Name="IdCurso" Type="int" Nullable="false" />
+    <Property Name="IdProfesor" Type="int" Nullable="false" />
+    <Property Name="IdPeriodo" Type="int" Nullable="false" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="Modalidad">
+    <Key>
+      <PropertyRef Name="IdModalidad" />
+    </Key>
+    <Property Name="IdModalidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreModalidad" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="PeriodoLectivo">
+    <Key>
+      <PropertyRef Name="IdPeriodo" />
+    </Key>
+    <Property Name="IdPeriodo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdModalidad" Type="int" />
+    <Property Name="FechaInicio" Type="date" />
+    <Property Name="FechaFin" Type="date" />
+    <Property Name="NombrePeriodo" Type="varchar" MaxLength="20" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="Profesor">
+    <Key>
+      <PropertyRef Name="IdProfesor" />
+    </Key>
+    <Property Name="IdProfesor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cedula" Type="varchar" MaxLength="20" />
+    <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="PrimerApellido" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="SegundoApellido" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="FechaIngreso" Type="date" />
+    <Property Name="Ppassword" Type="varchar" MaxLength="20" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="Rubrica">
+    <Key>
+      <PropertyRef Name="IdRubrica" />
+    </Key>
+    <Property Name="IdRubrica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdTipoEvaluacion" Type="int" Nullable="false" />
+    <Property Name="IdGrupo" Type="int" Nullable="false" />
+    <Property Name="Porcentaje" Type="float" Nullable="false" />
+    <Property Name="EsCalculado" Type="int" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TipoEvaluacion">
+    <Key>
+      <PropertyRef Name="IdEvaluacion" />
+    </Key>
+    <Property Name="IdEvaluacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Activo" Type="int" />
+  </EntityType>
+  <Association Name="Fk_EstudianteGrupo_EstadoEstudiante">
+    <End Role="EstadoEstudiante" Type="Self.EstadoEstudiante" Multiplicity="1" />
+    <End Role="EstudianteGrupo" Type="Self.EstudianteGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoEstudiante">
+        <PropertyRef Name="IdEstadoEst" />
+      </Principal>
+      <Dependent Role="EstudianteGrupo">
+        <PropertyRef Name="IdEstadoEst" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_EstudianteGrupo_Estudiante">
+    <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+    <End Role="EstudianteGrupo" Type="Self.EstudianteGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estudiante">
+        <PropertyRef Name="IdEstudiante" />
+      </Principal>
+      <Dependent Role="EstudianteGrupo">
+        <PropertyRef Name="IdEstudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_EstudianteGrupo_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="EstudianteGrupo" Type="Self.EstudianteGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="IdGrupo" />
+      </Principal>
+      <Dependent Role="EstudianteGrupo">
+        <PropertyRef Name="IdGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Evaluacion_Rubrica">
+    <End Role="Rubrica" Type="Self.Rubrica" Multiplicity="1" />
+    <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rubrica">
+        <PropertyRef Name="IdRubrica" />
+      </Principal>
+      <Dependent Role="Evaluacion">
+        <PropertyRef Name="IdRubrica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluacionEstudiante_Estudiante">
+    <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+    <End Role="EvaluacionEstudiante" Type="Self.EvaluacionEstudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estudiante">
+        <PropertyRef Name="IdEstudiante" />
+      </Principal>
+      <Dependent Role="EvaluacionEstudiante">
+        <PropertyRef Name="IdEstudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluacionEstudiante_Evaluacion">
+    <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="1" />
+    <End Role="EvaluacionEstudiante" Type="Self.EvaluacionEstudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evaluacion">
+        <PropertyRef Name="IdEvaluacion" />
+      </Principal>
+      <Dependent Role="EvaluacionEstudiante">
+        <PropertyRef Name="IdEvaluacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Grupo_Curso">
+    <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curso">
+        <PropertyRef Name="IdCurso" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Grupo_EstadoGrupo">
+    <End Role="EstadoGrupo" Type="Self.EstadoGrupo" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoGrupo">
+        <PropertyRef Name="IdEstadoGrupo" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="EstadoGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Grupo_Periodo">
+    <End Role="PeriodoLectivo" Type="Self.PeriodoLectivo" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodoLectivo">
+        <PropertyRef Name="IdPeriodo" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="IdPeriodo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Grupo_Profesor">
+    <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesor">
+        <PropertyRef Name="IdProfesor" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="IdProfesor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_PeriodoLectivo_Modalidad">
+    <End Role="Modalidad" Type="Self.Modalidad" Multiplicity="0..1" />
+    <End Role="PeriodoLectivo" Type="Self.PeriodoLectivo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modalidad">
+        <PropertyRef Name="IdModalidad" />
+      </Principal>
+      <Dependent Role="PeriodoLectivo">
+        <PropertyRef Name="IdModalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Rubrica_Evaluacion">
+    <End Role="TipoEvaluacion" Type="Self.TipoEvaluacion" Multiplicity="1" />
+    <End Role="Rubrica" Type="Self.Rubrica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoEvaluacion">
+        <PropertyRef Name="IdEvaluacion" />
+      </Principal>
+      <Dependent Role="Rubrica">
+        <PropertyRef Name="IdTipoEvaluacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Rubrica_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="Rubrica" Type="Self.Rubrica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="IdGrupo" />
+      </Principal>
+      <Dependent Role="Rubrica">
+        <PropertyRef Name="IdGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_AgregarCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NombreCurso" Type="varchar" Mode="In" />
+    <Parameter Name="CodCurso" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEstadoEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEstadoGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEstudiantes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Carnet" Type="varchar" Mode="In" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="Telefono" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEstudiantesXGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEstudiante" Type="int" Mode="In" />
+    <Parameter Name="IdGrupo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEvaluaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdRubrica" Type="int" Mode="In" />
+    <Parameter Name="FechaAplicacion" Type="date" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="PorcentajeAsig" Type="float" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEvaluacionesXEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEvaluacion" Type="int" Mode="In" />
+    <Parameter Name="NotaObtenida" Type="float" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEvaluacionFija" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdRubrica" Type="int" Mode="In" />
+    <Parameter Name="FechaAplicacion" Type="date" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="PorcentajeAsig" Type="float" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarEvaluacionVariada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdRubrica" Type="int" Mode="In" />
+    <Parameter Name="FechaAplicacion" Type="date" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Hora" Type="datetime" Mode="In" />
+    <Parameter Name="Aula" Type="varchar" Mode="In" />
+    <Parameter Name="IdCurso" Type="int" Mode="In" />
+    <Parameter Name="IdProfesor" Type="int" Mode="In" />
+    <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarModalidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NombreModalidad" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarPeriodoLectivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Modalidad" Type="varchar" Mode="In" />
+    <Parameter Name="FechaInicio" Type="date" Mode="In" />
+    <Parameter Name="FechaFin" Type="date" Mode="In" />
+    <Parameter Name="NombrePeriodo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarProfesor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Cedula" Type="varchar" Mode="In" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Ppassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarRubrica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdTipoEvaluacion" Type="int" Mode="In" />
+    <Parameter Name="IdGrupo" Type="int" Mode="In" />
+    <Parameter Name="Porcentaje" Type="float" Mode="In" />
+    <Parameter Name="EsCalculado" Type="int" Mode="In" />
+    <Parameter Name="Cantidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarTipoEvaluaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarEvaluacionRubrica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdRubrica" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarRubricaGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdGrupo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CodCurso" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarEstadoEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEstadoEst" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarEstadoGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEstadoGrupo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Carnet" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarEstudiantesXGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEstGrup" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEvaluacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarEvaluacionXEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEvalEst" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdGrupo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarModalidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdModalidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarPeriodoLectivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarProfesor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Cedula" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarRubrica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdRubrica" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarTipoEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEvaluacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarEstadoEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarEstadoGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarEstudianteGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarEvaluacionEstudiante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+    <Parameter Name="IdProfesor" Type="int" Mode="In" />
+    <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarModalidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarPeriodoLectivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarProfesor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarRubrica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ListarTipoEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Activo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ControlNotasModelStoreContainer">
+    <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstadoEstudiante" EntityType="Self.EstadoEstudiante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstadoGrupo" EntityType="Self.EstadoGrupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstudianteGrupo" EntityType="Self.EstudianteGrupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Evaluacion" EntityType="Self.Evaluacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EvaluacionEstudiante" EntityType="Self.EvaluacionEstudiante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modalidad" EntityType="Self.Modalidad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PeriodoLectivo" EntityType="Self.PeriodoLectivo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rubrica" EntityType="Self.Rubrica" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoEvaluacion" EntityType="Self.TipoEvaluacion" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Fk_EstudianteGrupo_EstadoEstudiante" Association="Self.Fk_EstudianteGrupo_EstadoEstudiante">
+      <End Role="EstadoEstudiante" EntitySet="EstadoEstudiante" />
+      <End Role="EstudianteGrupo" EntitySet="EstudianteGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_EstudianteGrupo_Estudiante" Association="Self.Fk_EstudianteGrupo_Estudiante">
+      <End Role="Estudiante" EntitySet="Estudiante" />
+      <End Role="EstudianteGrupo" EntitySet="EstudianteGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_EstudianteGrupo_Grupo" Association="Self.Fk_EstudianteGrupo_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="EstudianteGrupo" EntitySet="EstudianteGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Evaluacion_Rubrica" Association="Self.Fk_Evaluacion_Rubrica">
+      <End Role="Rubrica" EntitySet="Rubrica" />
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluacionEstudiante_Estudiante" Association="Self.FK_EvaluacionEstudiante_Estudiante">
+      <End Role="Estudiante" EntitySet="Estudiante" />
+      <End Role="EvaluacionEstudiante" EntitySet="EvaluacionEstudiante" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluacionEstudiante_Evaluacion" Association="Self.FK_EvaluacionEstudiante_Evaluacion">
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+      <End Role="EvaluacionEstudiante" EntitySet="EvaluacionEstudiante" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Grupo_Curso" Association="Self.Fk_Grupo_Curso">
+      <End Role="Curso" EntitySet="Curso" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Grupo_EstadoGrupo" Association="Self.Fk_Grupo_EstadoGrupo">
+      <End Role="EstadoGrupo" EntitySet="EstadoGrupo" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Grupo_Periodo" Association="Self.Fk_Grupo_Periodo">
+      <End Role="PeriodoLectivo" EntitySet="PeriodoLectivo" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Grupo_Profesor" Association="Self.Fk_Grupo_Profesor">
+      <End Role="Profesor" EntitySet="Profesor" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_PeriodoLectivo_Modalidad" Association="Self.Fk_PeriodoLectivo_Modalidad">
+      <End Role="Modalidad" EntitySet="Modalidad" />
+      <End Role="PeriodoLectivo" EntitySet="PeriodoLectivo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Rubrica_Evaluacion" Association="Self.Fk_Rubrica_Evaluacion">
+      <End Role="TipoEvaluacion" EntitySet="TipoEvaluacion" />
+      <End Role="Rubrica" EntitySet="Rubrica" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Rubrica_Grupo" Association="Self.Fk_Rubrica_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Rubrica" EntitySet="Rubrica" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

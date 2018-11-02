@@ -1,0 +1,25 @@
+﻿@model IEnumerable<RegistroNotas.Models.NombrePeriodoLectivo>
+
+@{
+    Layout = null;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombrePeriodo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombrePeriodo)
+            </td>
+        </tr>
+    }
+
+</table>@Html.ActionLink("Ver Cursos", "Index", "Curso")
+@Html.ActionLink("Ver Estudiantes", "Index", "Estudiante")
+@Html.ActionLink("Ver PeriodoLectivo", "Index", "PeriodoLectivo")

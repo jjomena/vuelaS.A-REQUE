@@ -1,0 +1,708 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ControlNotasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Curso">
+    <Key>
+      <PropertyRef Name="IdCurso" />
+    </Key>
+    <Property Name="IdCurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreCurso" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodCurso" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Grupo" Relationship="Self.Fk_Grupo_Curso" FromRole="Curso" ToRole="Grupo" />
+  </EntityType>
+  <EntityType Name="EstadoEstudiante">
+    <Key>
+      <PropertyRef Name="IdEstadoEst" />
+    </Key>
+    <Property Name="IdEstadoEst" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="EstudianteGrupo" Relationship="Self.Fk_EstudianteGrupo_EstadoEstudiante" FromRole="EstadoEstudiante" ToRole="EstudianteGrupo" />
+  </EntityType>
+  <EntityType Name="EstadoGrupo">
+    <Key>
+      <PropertyRef Name="IdEstadoGrupo" />
+    </Key>
+    <Property Name="IdEstadoGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Grupo" Relationship="Self.Fk_Grupo_EstadoGrupo" FromRole="EstadoGrupo" ToRole="Grupo" />
+  </EntityType>
+  <EntityType Name="Estudiante">
+    <Key>
+      <PropertyRef Name="IdEstudiante" />
+    </Key>
+    <Property Name="IdEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Carnet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PrimerApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SegundoApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Precision="0" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Epassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="EstudianteGrupo" Relationship="Self.Fk_EstudianteGrupo_Estudiante" FromRole="Estudiante" ToRole="EstudianteGrupo" />
+    <NavigationProperty Name="EvaluacionEstudiante" Relationship="Self.FK_EvaluacionEstudiante_Estudiante" FromRole="Estudiante" ToRole="EvaluacionEstudiante" />
+  </EntityType>
+  <EntityType Name="EstudianteGrupo">
+    <Key>
+      <PropertyRef Name="IdEstGrup" />
+    </Key>
+    <Property Name="IdEstGrup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
+    <Property Name="IdGrupo" Type="Int32" Nullable="false" />
+    <Property Name="IdEstadoEst" Type="Int32" Nullable="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="EstadoEstudiante" Relationship="Self.Fk_EstudianteGrupo_EstadoEstudiante" FromRole="EstudianteGrupo" ToRole="EstadoEstudiante" />
+    <NavigationProperty Name="Estudiante" Relationship="Self.Fk_EstudianteGrupo_Estudiante" FromRole="EstudianteGrupo" ToRole="Estudiante" />
+    <NavigationProperty Name="Grupo" Relationship="Self.Fk_EstudianteGrupo_Grupo" FromRole="EstudianteGrupo" ToRole="Grupo" />
+  </EntityType>
+  <EntityType Name="Evaluacion">
+    <Key>
+      <PropertyRef Name="IdEvaluacion" />
+    </Key>
+    <Property Name="IdEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdRubrica" Type="Int32" Nullable="false" />
+    <Property Name="FechaAplicacion" Type="DateTime" Precision="0" />
+    <Property Name="Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PorcentajeAsig" Type="Double" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Rubrica" Relationship="Self.Fk_Evaluacion_Rubrica" FromRole="Evaluacion" ToRole="Rubrica" />
+    <NavigationProperty Name="EvaluacionEstudiante" Relationship="Self.FK_EvaluacionEstudiante_Evaluacion" FromRole="Evaluacion" ToRole="EvaluacionEstudiante" />
+  </EntityType>
+  <EntityType Name="EvaluacionEstudiante">
+    <Key>
+      <PropertyRef Name="IdEvalEst" />
+    </Key>
+    <Property Name="IdEvalEst" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
+    <Property Name="IdEvaluacion" Type="Int32" Nullable="false" />
+    <Property Name="NotaObtenida" Type="Double" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Estudiante" Relationship="Self.FK_EvaluacionEstudiante_Estudiante" FromRole="EvaluacionEstudiante" ToRole="Estudiante" />
+    <NavigationProperty Name="Evaluacion" Relationship="Self.FK_EvaluacionEstudiante_Evaluacion" FromRole="EvaluacionEstudiante" ToRole="Evaluacion" />
+  </EntityType>
+  <EntityType Name="Grupo">
+    <Key>
+      <PropertyRef Name="IdGrupo" />
+    </Key>
+    <Property Name="IdGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Hora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Aula" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EstadoGrupo" Type="Int32" Nullable="false" />
+    <Property Name="IdCurso" Type="Int32" Nullable="false" />
+    <Property Name="IdProfesor" Type="Int32" Nullable="false" />
+    <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Curso" Relationship="Self.Fk_Grupo_Curso" FromRole="Grupo" ToRole="Curso" />
+    <NavigationProperty Name="EstadoGrupo1" Relationship="Self.Fk_Grupo_EstadoGrupo" FromRole="Grupo" ToRole="EstadoGrupo" />
+    <NavigationProperty Name="EstudianteGrupo" Relationship="Self.Fk_EstudianteGrupo_Grupo" FromRole="Grupo" ToRole="EstudianteGrupo" />
+    <NavigationProperty Name="PeriodoLectivo" Relationship="Self.Fk_Grupo_Periodo" FromRole="Grupo" ToRole="PeriodoLectivo" />
+    <NavigationProperty Name="Profesor" Relationship="Self.Fk_Grupo_Profesor" FromRole="Grupo" ToRole="Profesor" />
+    <NavigationProperty Name="Rubrica" Relationship="Self.Fk_Rubrica_Grupo" FromRole="Grupo" ToRole="Rubrica" />
+  </EntityType>
+  <EntityType Name="Modalidad">
+    <Key>
+      <PropertyRef Name="IdModalidad" />
+    </Key>
+    <Property Name="IdModalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreModalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="PeriodoLectivo" Relationship="Self.Fk_PeriodoLectivo_Modalidad" FromRole="Modalidad" ToRole="PeriodoLectivo" />
+  </EntityType>
+  <EntityType Name="PeriodoLectivo">
+    <Key>
+      <PropertyRef Name="IdPeriodo" />
+    </Key>
+    <Property Name="IdPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdModalidad" Type="Int32" />
+    <Property Name="FechaInicio" Type="DateTime" Precision="0" />
+    <Property Name="FechaFin" Type="DateTime" Precision="0" />
+    <Property Name="NombrePeriodo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Grupo" Relationship="Self.Fk_Grupo_Periodo" FromRole="PeriodoLectivo" ToRole="Grupo" />
+    <NavigationProperty Name="Modalidad" Relationship="Self.Fk_PeriodoLectivo_Modalidad" FromRole="PeriodoLectivo" ToRole="Modalidad" />
+  </EntityType>
+  <EntityType Name="Profesor">
+    <Key>
+      <PropertyRef Name="IdProfesor" />
+    </Key>
+    <Property Name="IdProfesor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PrimerApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SegundoApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Precision="0" />
+    <Property Name="Ppassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Grupo" Relationship="Self.Fk_Grupo_Profesor" FromRole="Profesor" ToRole="Grupo" />
+  </EntityType>
+  <EntityType Name="Rubrica">
+    <Key>
+      <PropertyRef Name="IdRubrica" />
+    </Key>
+    <Property Name="IdRubrica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTipoEvaluacion" Type="Int32" Nullable="false" />
+    <Property Name="IdGrupo" Type="Int32" Nullable="false" />
+    <Property Name="Porcentaje" Type="Double" Nullable="false" />
+    <Property Name="EsCalculado" Type="Int32" />
+    <Property Name="Cantidad" Type="Int32" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Evaluacion" Relationship="Self.Fk_Evaluacion_Rubrica" FromRole="Rubrica" ToRole="Evaluacion" />
+    <NavigationProperty Name="Grupo" Relationship="Self.Fk_Rubrica_Grupo" FromRole="Rubrica" ToRole="Grupo" />
+    <NavigationProperty Name="TipoEvaluacion" Relationship="Self.Fk_Rubrica_Evaluacion" FromRole="Rubrica" ToRole="TipoEvaluacion" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TipoEvaluacion">
+    <Key>
+      <PropertyRef Name="IdEvaluacion" />
+    </Key>
+    <Property Name="IdEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Int32" />
+    <NavigationProperty Name="Rubrica" Relationship="Self.Fk_Rubrica_Evaluacion" FromRole="TipoEvaluacion" ToRole="Rubrica" />
+  </EntityType>
+  <Association Name="Fk_Grupo_Curso">
+    <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curso">
+        <PropertyRef Name="IdCurso" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_EstudianteGrupo_EstadoEstudiante">
+    <End Role="EstadoEstudiante" Type="Self.EstadoEstudiante" Multiplicity="1" />
+    <End Role="EstudianteGrupo" Type="Self.EstudianteGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoEstudiante">
+        <PropertyRef Name="IdEstadoEst" />
+      </Principal>
+      <Dependent Role="EstudianteGrupo">
+        <PropertyRef Name="IdEstadoEst" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Grupo_EstadoGrupo">
+    <End Role="EstadoGrupo" Type="Self.EstadoGrupo" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoGrupo">
+        <PropertyRef Name="IdEstadoGrupo" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="EstadoGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_EstudianteGrupo_Estudiante">
+    <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+    <End Role="EstudianteGrupo" Type="Self.EstudianteGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estudiante">
+        <PropertyRef Name="IdEstudiante" />
+      </Principal>
+      <Dependent Role="EstudianteGrupo">
+        <PropertyRef Name="IdEstudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluacionEstudiante_Estudiante">
+    <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+    <End Role="EvaluacionEstudiante" Type="Self.EvaluacionEstudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estudiante">
+        <PropertyRef Name="IdEstudiante" />
+      </Principal>
+      <Dependent Role="EvaluacionEstudiante">
+        <PropertyRef Name="IdEstudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_EstudianteGrupo_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="EstudianteGrupo" Type="Self.EstudianteGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="IdGrupo" />
+      </Principal>
+      <Dependent Role="EstudianteGrupo">
+        <PropertyRef Name="IdGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Evaluacion_Rubrica">
+    <End Role="Rubrica" Type="Self.Rubrica" Multiplicity="1" />
+    <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rubrica">
+        <PropertyRef Name="IdRubrica" />
+      </Principal>
+      <Dependent Role="Evaluacion">
+        <PropertyRef Name="IdRubrica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluacionEstudiante_Evaluacion">
+    <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="1" />
+    <End Role="EvaluacionEstudiante" Type="Self.EvaluacionEstudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evaluacion">
+        <PropertyRef Name="IdEvaluacion" />
+      </Principal>
+      <Dependent Role="EvaluacionEstudiante">
+        <PropertyRef Name="IdEvaluacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Grupo_Periodo">
+    <End Role="PeriodoLectivo" Type="Self.PeriodoLectivo" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodoLectivo">
+        <PropertyRef Name="IdPeriodo" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="IdPeriodo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Grupo_Profesor">
+    <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesor">
+        <PropertyRef Name="IdProfesor" />
+      </Principal>
+      <Dependent Role="Grupo">
+        <PropertyRef Name="IdProfesor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Rubrica_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="Rubrica" Type="Self.Rubrica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="IdGrupo" />
+      </Principal>
+      <Dependent Role="Rubrica">
+        <PropertyRef Name="IdGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_PeriodoLectivo_Modalidad">
+    <End Role="Modalidad" Type="Self.Modalidad" Multiplicity="0..1" />
+    <End Role="PeriodoLectivo" Type="Self.PeriodoLectivo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modalidad">
+        <PropertyRef Name="IdModalidad" />
+      </Principal>
+      <Dependent Role="PeriodoLectivo">
+        <PropertyRef Name="IdModalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Rubrica_Evaluacion">
+    <End Role="TipoEvaluacion" Type="Self.TipoEvaluacion" Multiplicity="1" />
+    <End Role="Rubrica" Type="Self.Rubrica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoEvaluacion">
+        <PropertyRef Name="IdEvaluacion" />
+      </Principal>
+      <Dependent Role="Rubrica">
+        <PropertyRef Name="IdTipoEvaluacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ApplicationDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Curso" EntityType="Self.Curso" />
+    <EntitySet Name="EstadoEstudiante" EntityType="Self.EstadoEstudiante" />
+    <EntitySet Name="EstadoGrupo" EntityType="Self.EstadoGrupo" />
+    <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
+    <EntitySet Name="EstudianteGrupo" EntityType="Self.EstudianteGrupo" />
+    <EntitySet Name="Evaluacion" EntityType="Self.Evaluacion" />
+    <EntitySet Name="EvaluacionEstudiante" EntityType="Self.EvaluacionEstudiante" />
+    <EntitySet Name="Grupo" EntityType="Self.Grupo" />
+    <EntitySet Name="Modalidad" EntityType="Self.Modalidad" />
+    <EntitySet Name="PeriodoLectivo" EntityType="Self.PeriodoLectivo" />
+    <EntitySet Name="Profesor" EntityType="Self.Profesor" />
+    <EntitySet Name="Rubrica" EntityType="Self.Rubrica" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TipoEvaluacion" EntityType="Self.TipoEvaluacion" />
+    <AssociationSet Name="Fk_Grupo_Curso" Association="Self.Fk_Grupo_Curso">
+      <End Role="Curso" EntitySet="Curso" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_EstudianteGrupo_EstadoEstudiante" Association="Self.Fk_EstudianteGrupo_EstadoEstudiante">
+      <End Role="EstadoEstudiante" EntitySet="EstadoEstudiante" />
+      <End Role="EstudianteGrupo" EntitySet="EstudianteGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Grupo_EstadoGrupo" Association="Self.Fk_Grupo_EstadoGrupo">
+      <End Role="EstadoGrupo" EntitySet="EstadoGrupo" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_EstudianteGrupo_Estudiante" Association="Self.Fk_EstudianteGrupo_Estudiante">
+      <End Role="Estudiante" EntitySet="Estudiante" />
+      <End Role="EstudianteGrupo" EntitySet="EstudianteGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluacionEstudiante_Estudiante" Association="Self.FK_EvaluacionEstudiante_Estudiante">
+      <End Role="Estudiante" EntitySet="Estudiante" />
+      <End Role="EvaluacionEstudiante" EntitySet="EvaluacionEstudiante" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_EstudianteGrupo_Grupo" Association="Self.Fk_EstudianteGrupo_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="EstudianteGrupo" EntitySet="EstudianteGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Evaluacion_Rubrica" Association="Self.Fk_Evaluacion_Rubrica">
+      <End Role="Rubrica" EntitySet="Rubrica" />
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluacionEstudiante_Evaluacion" Association="Self.FK_EvaluacionEstudiante_Evaluacion">
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+      <End Role="EvaluacionEstudiante" EntitySet="EvaluacionEstudiante" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Grupo_Periodo" Association="Self.Fk_Grupo_Periodo">
+      <End Role="PeriodoLectivo" EntitySet="PeriodoLectivo" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Grupo_Profesor" Association="Self.Fk_Grupo_Profesor">
+      <End Role="Profesor" EntitySet="Profesor" />
+      <End Role="Grupo" EntitySet="Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Rubrica_Grupo" Association="Self.Fk_Rubrica_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Rubrica" EntitySet="Rubrica" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_PeriodoLectivo_Modalidad" Association="Self.Fk_PeriodoLectivo_Modalidad">
+      <End Role="Modalidad" EntitySet="Modalidad" />
+      <End Role="PeriodoLectivo" EntitySet="PeriodoLectivo" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Rubrica_Evaluacion" Association="Self.Fk_Rubrica_Evaluacion">
+      <End Role="TipoEvaluacion" EntitySet="TipoEvaluacion" />
+      <End Role="Rubrica" EntitySet="Rubrica" />
+    </AssociationSet>
+    <FunctionImport Name="sp_AgregarCurso">
+      <Parameter Name="NombreCurso" Mode="In" Type="String" />
+      <Parameter Name="CodCurso" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEstadoEstudiante">
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEstadoGrupo">
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEstudiantes">
+      <Parameter Name="Carnet" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="PrimerApellido" Mode="In" Type="String" />
+      <Parameter Name="SegundoApellido" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEstudiantesXGrupo">
+      <Parameter Name="IdEstudiante" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEvaluaciones">
+      <Parameter Name="IdRubrica" Mode="In" Type="Int32" />
+      <Parameter Name="FechaAplicacion" Mode="In" Type="DateTime" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="PorcentajeAsig" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEvaluacionesXEstudiante">
+      <Parameter Name="IdEvaluacion" Mode="In" Type="Int32" />
+      <Parameter Name="NotaObtenida" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEvaluacionFija">
+      <Parameter Name="IdRubrica" Mode="In" Type="Int32" />
+      <Parameter Name="FechaAplicacion" Mode="In" Type="DateTime" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="PorcentajeAsig" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarEvaluacionVariada">
+      <Parameter Name="IdRubrica" Mode="In" Type="Int32" />
+      <Parameter Name="FechaAplicacion" Mode="In" Type="DateTime" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarGrupo">
+      <Parameter Name="Hora" Mode="In" Type="DateTime" />
+      <Parameter Name="Aula" Mode="In" Type="String" />
+      <Parameter Name="IdCurso" Mode="In" Type="Int32" />
+      <Parameter Name="IdProfesor" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarModalidad">
+      <Parameter Name="NombreModalidad" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarPeriodoLectivo">
+      <Parameter Name="Modalidad" Mode="In" Type="String" />
+      <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFin" Mode="In" Type="DateTime" />
+      <Parameter Name="NombrePeriodo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarProfesor">
+      <Parameter Name="Cedula" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="PrimerApellido" Mode="In" Type="String" />
+      <Parameter Name="SegundoApellido" Mode="In" Type="String" />
+      <Parameter Name="Ppassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarRubrica">
+      <Parameter Name="IdTipoEvaluacion" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+      <Parameter Name="Porcentaje" Mode="In" Type="Double" />
+      <Parameter Name="EsCalculado" Mode="In" Type="Int32" />
+      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarTipoEvaluaciones">
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarEvaluacionRubrica" ReturnType="Collection(ControlNotasModel.sp_ConsultarEvaluacionRubrica_Result)">
+      <Parameter Name="IdRubrica" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarRubricaGrupo" ReturnType="Collection(ControlNotasModel.sp_ConsultarRubricaGrupo_Result)">
+      <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarCurso">
+      <Parameter Name="CodCurso" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarEstadoEstudiante">
+      <Parameter Name="IdEstadoEst" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarEstadoGrupo">
+      <Parameter Name="IdEstadoGrupo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarEstudiante">
+      <Parameter Name="Carnet" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarEstudiantesXGrupo">
+      <Parameter Name="IdEstGrup" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarEvaluacion">
+      <Parameter Name="IdEvaluacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarEvaluacionXEstudiante">
+      <Parameter Name="IdEvalEst" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarGrupo">
+      <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarModalidad">
+      <Parameter Name="IdModalidad" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarPeriodoLectivo">
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarProfesor">
+      <Parameter Name="Cedula" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarRubrica">
+      <Parameter Name="IdRubrica" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarTipoEvaluacion">
+      <Parameter Name="IdEvaluacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ControlNotasModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ControlNotasModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarCurso" ReturnType="Collection(ControlNotasModel.sp_ListarCurso_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarEstadoEstudiante" ReturnType="Collection(ControlNotasModel.sp_ListarEstadoEstudiante_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarEstadoGrupo" ReturnType="Collection(ControlNotasModel.sp_ListarEstadoGrupo_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarEstudiante" ReturnType="Collection(ControlNotasModel.sp_ListarEstudiante_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarEstudianteGrupo" ReturnType="Collection(ControlNotasModel.sp_ListarEstudianteGrupo_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarEvaluacion" ReturnType="Collection(ControlNotasModel.sp_ListarEvaluacion_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarEvaluacionEstudiante" ReturnType="Collection(ControlNotasModel.sp_ListarEvaluacionEstudiante_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarGrupo" ReturnType="Collection(ControlNotasModel.sp_ListarGrupo_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+      <Parameter Name="IdProfesor" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarModalidad" ReturnType="Collection(ControlNotasModel.sp_ListarModalidad_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarPeriodoLectivo" ReturnType="Collection(ControlNotasModel.sp_ListarPeriodoLectivo_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarProfesor" ReturnType="Collection(ControlNotasModel.sp_ListarProfesor_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarRubrica" ReturnType="Collection(ControlNotasModel.sp_ListarRubrica_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ListarTipoEvaluacion" ReturnType="Collection(ControlNotasModel.sp_ListarTipoEvaluacion_Result)">
+      <Parameter Name="Activo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_ConsultarEvaluacionRubrica_Result">
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="PorcentajeAsig" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarRubricaGrupo_Result">
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="Porcentaje" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarCurso_Result">
+    <Property Type="Int32" Name="IdCurso" Nullable="false" />
+    <Property Type="String" Name="NombreCurso" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="CodCurso" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarEstadoEstudiante_Result">
+    <Property Type="Int32" Name="IdEstadoEst" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarEstadoGrupo_Result">
+    <Property Type="Int32" Name="IdEstadoGrupo" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarEstudiante_Result">
+    <Property Type="Int32" Name="IdEstudiante" Nullable="false" />
+    <Property Type="String" Name="Carnet" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="SegundoApellido" Nullable="false" MaxLength="30" />
+    <Property Type="DateTime" Name="FechaIngreso" Nullable="true" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="Epassword" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarEstudianteGrupo_Result">
+    <Property Type="Int32" Name="IdEstGrup" Nullable="false" />
+    <Property Type="Int32" Name="IdEstudiante" Nullable="false" />
+    <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+    <Property Type="Int32" Name="IdEstadoEst" Nullable="false" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarEvaluacion_Result">
+    <Property Type="Int32" Name="IdEvaluacion" Nullable="false" />
+    <Property Type="Int32" Name="IdRubrica" Nullable="false" />
+    <Property Type="DateTime" Name="FechaAplicacion" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="PorcentajeAsig" Nullable="true" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarEvaluacionEstudiante_Result">
+    <Property Type="Int32" Name="IdEvaluacion" Nullable="false" />
+    <Property Type="Int32" Name="IdRubrica" Nullable="false" />
+    <Property Type="DateTime" Name="FechaAplicacion" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="Double" Name="PorcentajeAsig" Nullable="true" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarGrupo_Result">
+    <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+    <Property Type="DateTime" Name="Hora" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Aula" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="EstadoGrupo" Nullable="false" />
+    <Property Type="Int32" Name="IdCurso" Nullable="false" />
+    <Property Type="Int32" Name="IdProfesor" Nullable="false" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarModalidad_Result">
+    <Property Type="Int32" Name="IdModalidad" Nullable="false" />
+    <Property Type="String" Name="NombreModalidad" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarPeriodoLectivo_Result">
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="Int32" Name="IdModalidad" Nullable="true" />
+    <Property Type="DateTime" Name="FechaInicio" Nullable="true" />
+    <Property Type="DateTime" Name="FechaFin" Nullable="true" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarProfesor_Result">
+    <Property Type="Int32" Name="IdProfesor" Nullable="false" />
+    <Property Type="String" Name="Cedula" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="SegundoApellido" Nullable="false" MaxLength="30" />
+    <Property Type="DateTime" Name="FechaIngreso" Nullable="true" />
+    <Property Type="String" Name="Ppassword" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarRubrica_Result">
+    <Property Type="Int32" Name="IdRubrica" Nullable="false" />
+    <Property Type="Int32" Name="IdTipoEvaluacion" Nullable="false" />
+    <Property Type="Int32" Name="IdGrupo" Nullable="false" />
+    <Property Type="Double" Name="Porcentaje" Nullable="false" />
+    <Property Type="Int32" Name="EsCalculado" Nullable="true" />
+    <Property Type="Int32" Name="Cantidad" Nullable="true" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarTipoEvaluacion_Result">
+    <Property Type="Int32" Name="IdEvaluacion" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Activo" Nullable="true" />
+  </ComplexType>
+</Schema>
